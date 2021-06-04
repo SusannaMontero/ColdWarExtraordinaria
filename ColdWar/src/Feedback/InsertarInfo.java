@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class InsertarInfo extends JPanel implements ActionListener {
 	
 	JLabel titulo;
-	// Declaramos todas las variables 
+	// Declaramos variables 
 	JLabel nombreTextoMuestra;
 	JLabel tipoTextoMuestra;
 	JLabel nombreComentario;

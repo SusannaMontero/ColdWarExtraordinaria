@@ -6,7 +6,7 @@ public class ConexionBD {
 	private static final String DB = "DatabaseName=coldwar;";
 	private static final String USER = "user=root;";
 	private static final String PWD = "Password=usbw;";
-	private static final String URL = "jdbc:sqlserver://localhost;" + DB + USER + PWD;
+	private static final String URL = "jdbc:mysql://localhost:3306;" + DB + USER + PWD;
 	
 	 
 	private static Scanner smenu = new Scanner(System.in);
@@ -26,7 +26,7 @@ public static Connection makeConnection() {
 		Connection con = null;
 		//intentamos la conexion a la base de datos
 		try  {
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(URL);
 			System.out.println("Database connected!");
 			
@@ -54,8 +54,8 @@ public static Connection makeConnection() {
 	
 	public static void insertWithStatement(Connection con, String nombre, String tipo) {
 		
-		String sql = "INSERT INTO dbo.ColdWar (nombre, tipo) VALUES ('"+nombre+"','"+tipo+"')";
-		
+		//String sql = "INSERT INTO dbo.coldwar (nombre, tipo) VALUES ('"+nombre+"','"+tipo+"')";
+		String sql = "INSERT INTO dbo.coldwar (nombre, tipo) VALUES (?, ?)";
 		try {
 			Statement statement = (Statement) con.createStatement();
 			statement.execute(sql);
@@ -69,7 +69,7 @@ public static Connection makeConnection() {
 	
 	public static void selectWithStatement(Connection con) {
 		
-		String sql = "SELECT * FROM dbo.ColdWar";
+		String sql = "SELECT * FROM dbo.coldwar";
 		
 		Statement st = null;
 		
@@ -82,9 +82,8 @@ public static Connection makeConnection() {
 		    {
 		    	int id = rs.getInt("id");
 		        String nombre = rs.getString("nombre");
-		        int puntuacion = rs.getInt("puntos");
-
-		        System.out.println("Id:" + id + " Nombre:" + nombre + " Puntuacion:" + puntuacion);
+		      
+		        System.out.println("Id:" + id + " Nombre:" + nombre + " Puntuacion:" );
 		    }
 		      
 		    st.close();
